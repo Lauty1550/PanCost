@@ -1,24 +1,29 @@
+import { useLocation, useNavigate } from "react-router";
 import "../css/Menu.css";
-import { useAppcontext } from "../hooks/useAppContext";
 
 export default function Menu() {
-  const { selection, setSelection } = useAppcontext();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
-    <div className="menu">
+    <nav className="menu">
       <button
-        className={selection === 0 ? "active" : "menu-selection"}
-        onClick={() => setSelection(0)}
+        className={
+          location.pathname === "/Recetas" ? "active" : "menu-selection"
+        }
+        onClick={() => navigate("/Recetas")}
       >
         Recetas
       </button>
 
       <button
-        className={selection === 1 ? "active" : "menu-selection"}
-        onClick={() => setSelection(1)}
+        className={
+          location.pathname === "/Ingredientes" ? "active" : "menu-selection"
+        }
+        onClick={() => navigate("/Ingredientes")}
       >
         Ingredientes
       </button>
-    </div>
+    </nav>
   );
 }

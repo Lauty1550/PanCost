@@ -1,5 +1,4 @@
 import "../css/Content.css";
-import { useAppcontext } from "../hooks/useAppContext";
 import BotonAdd from "./BotonAdd";
 import NewIngrediente from "./NewIngrediente";
 import NewReceta from "./NewReceta";
@@ -8,9 +7,10 @@ import { FiSearch } from "react-icons/fi";
 import RecetasList from "./RecetasList";
 import IngredientesList from "./IngredientesList";
 import { IoMdClose } from "react-icons/io";
+import { useLocation } from "react-router";
 
 export default function Content() {
-  const { selection } = useAppcontext();
+  const location = useLocation();
   const { input, handleChange, onSubmit, inputRef, focusInput, clearQuery } =
     useContent();
 
@@ -18,7 +18,7 @@ export default function Content() {
     <main className="content-container">
       <BotonAdd />
       <form className="search" onSubmit={onSubmit}>
-        <div className="search-input">
+        <fieldset className="search-input">
           <FiSearch className="search-icon" onClick={focusInput} />
           <input
             ref={inputRef}
@@ -31,16 +31,26 @@ export default function Content() {
           {input.length > 0 && (
             <IoMdClose className="close-search-icon" onClick={clearQuery} />
           )}
-        </div>
+        </fieldset>
       </form>
       <section className="content">
-        <div className={selection === 0 ? "visible-grid" : "hidden-grid"}>
+        <article
+          className={
+            location.pathname === "/Recetas" ? "visible-grid" : "hidden-grid"
+          }
+        >
           <RecetasList />
-        </div>
+        </article>
 
-        <div className={selection === 1 ? "visible-grid" : "hidden-grid"}>
+        <article
+          className={
+            location.pathname === "/Ingredientes"
+              ? "visible-grid"
+              : "hidden-grid"
+          }
+        >
           <IngredientesList />
-        </div>
+        </article>
       </section>
       <NewReceta />
       <NewIngrediente />

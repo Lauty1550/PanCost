@@ -30,6 +30,8 @@
 .search-input {
   position: relative;
   width: 300px;
+  border: none;
+  padding: 0;
 }
 
 .search-input input {

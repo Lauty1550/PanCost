@@ -1,16 +1,23 @@
 import { Toaster } from "sonner";
-import Content from "./components/Content";
 import Header from "./components/Header";
-import Menu from "./components/Menu";
 import "./css/App.css";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { Main } from "./components/Main";
 
 export default function App() {
   return (
-    <div className="page">
-      <Toaster richColors position="top-center" />
-      <Header />
-      <Menu />
-      <Content />
-    </div>
+    <BrowserRouter>
+      <div className="page">
+        <Toaster richColors position="top-center" />
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<Navigate to="/Recetas" replace />} />
+          <Route path="/Recetas" element={<Main />} />
+          <Route path="/Ingredientes" element={<Main />} />
+          <Route path="*" element={<Navigate to="/Recetas" replace />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
