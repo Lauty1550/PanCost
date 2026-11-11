@@ -4,7 +4,9 @@ const API_URL = import.meta.env.VITE_API_URL + "/recetas";
 
 export const RecetaService = {
   async getAllRecetas() {
-    const resp = await fetch(`${API_URL}`);
+    const resp = await fetch(`${API_URL}`, {
+      credentials: "include",
+    });
 
     if (!resp.ok) {
       throw new Error("Error al obtener receta");
@@ -26,6 +28,7 @@ export const RecetaService = {
 
       const resp = await fetch(`${API_URL}/crear`, {
         method: "POST",
+        credentials: "include",
         body: formData,
       });
 
@@ -44,6 +47,7 @@ export const RecetaService = {
     try {
       const resp = await fetch(`${API_URL}/borrar/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
 
       const data = await resp.json();
@@ -73,6 +77,7 @@ export const RecetaService = {
 
       const resp = await fetch(`${API_URL}/editar/${id}`, {
         method: "PUT",
+        credentials: "include",
         body: formData,
       });
 
