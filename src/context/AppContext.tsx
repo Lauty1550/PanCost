@@ -2,8 +2,6 @@ import React, { createContext } from "react";
 import type { Receta } from "../types/Receta";
 
 type AppContextType = {
-  selection: number;
-  setSelection: React.Dispatch<React.SetStateAction<number>>;
   enableModalIngrediente: boolean;
   setEnableModalIngrediente: React.Dispatch<React.SetStateAction<boolean>>;
   dispararFetchIngrediente: boolean;

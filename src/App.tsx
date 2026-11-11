@@ -2,7 +2,7 @@ import { Toaster } from "sonner";
 import Header from "./components/Header";
 import "./css/App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
-import { Main } from "./components/Main";
+import { Display } from "./components/Display";
 
 export default function App() {
   return (
@@ -13,8 +13,8 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<Navigate to="/Recetas" replace />} />
-          <Route path="/Recetas" element={<Main />} />
-          <Route path="/Ingredientes" element={<Main />} />
+          <Route path="/Recetas" element={<Display />} />
+          <Route path="/Ingredientes" element={<Display />} />
           <Route path="*" element={<Navigate to="/Recetas" replace />} />
         </Routes>
       </div>
