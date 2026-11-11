@@ -1,35 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppcontext } from "../hooks/useAppContext";
-import { authMe, logOut } from "../services/auth.service";
+import { logOut } from "../services/auth.service";
 import type { Usuario } from "../types/Usuario";
 import { useNavigate } from "react-router";
 
 export function Usuario() {
-  const { inicioSesion, setInicioSesion } = useAppcontext();
-  const [usuario, setUsuario] = useState<Usuario | null>();
   const navigate = useNavigate();
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-
-  async function obtenerUsuario() {
-    const user = await authMe();
-    if (user) {
-      setUsuario(user);
-    } else {
-      setUsuario(null);
-    }
-  }
+  const { usuario, setUsuario } = useAppcontext();
 
   async function cerrarSesion() {
     await logOut();
     navigate("/Log-In");
     setDropdown(false);
-    setInicioSesion(!inicioSesion);
+    setUsuario(null);
   }
-
-  useEffect(() => {
-    obtenerUsuario();
-  }, [inicioSesion]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

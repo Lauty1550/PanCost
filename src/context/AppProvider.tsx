@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { AppContext } from "./AppContext";
 import type { Receta } from "../types/Receta";
+import type { Usuario } from "../types/Usuario";
 
 type Props = {
   children: ReactNode;
@@ -15,6 +16,7 @@ export default function AppProvider({ children }: Props) {
   const [query, setQuery] = useState("");
   const [recetaEditar, setRecetaEditar] = useState<Receta | null>(null);
   const [inicioSesion, setInicioSesion] = useState<boolean>(false);
+  const [usuario, setUsuario] = useState<Usuario | null>(null);
 
   return (
     <AppContext.Provider
@@ -33,6 +35,8 @@ export default function AppProvider({ children }: Props) {
         setRecetaEditar,
         inicioSesion,
         setInicioSesion,
+        usuario,
+        setUsuario,
       }}
     >
       {children}

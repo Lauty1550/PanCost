@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { authGoogle } from "../services/auth.service";
+import { authGoogle, authMe } from "../services/auth.service";
 import { useAppcontext } from "../hooks/useAppContext";
 import { useNavigate } from "react-router";
 
@@ -29,10 +29,19 @@ declare global {
 }
 
 export default function GoogleAuth() {
-  const { inicioSesion, setInicioSesion } = useAppcontext();
+  const { setUsuario } = useAppcontext();
   const navigate = useNavigate();
 
   const buttonRef = useRef<HTMLDivElement>(null);
+
+  async function obtenerUsuario() {
+    const user = await authMe();
+    if (user) {
+      setUsuario(user);
+    } else {
+      setUsuario(null);
+    }
+  }
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -46,9 +55,8 @@ export default function GoogleAuth() {
         client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
         callback: async ({ credential }) => {
           try {
-            const result = await authGoogle(credential);
-            console.log("Login correcto:", result);
-            setInicioSesion(!inicioSesion);
+            await authGoogle(credential);
+            await obtenerUsuario();
             navigate("/Recetas");
           } catch (error) {
             console.error("Falló el login:", error);
@@ -67,6 +75,7 @@ export default function GoogleAuth() {
 
     document.head.appendChild(script);
     return () => script.remove();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div ref={buttonRef} />;
