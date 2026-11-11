@@ -1,9 +1,12 @@
 import "../css/BotonAdd.css";
 import { useAppcontext } from "../hooks/useAppContext";
 
-export default function BotonAdd() {
-  const { selection, setEnableModalIngrediente, setEnableModalReceta } =
-    useAppcontext();
+type Props = {
+  selection: number;
+};
+
+export default function BotonAdd({ selection }: Props) {
+  const { setEnableModalIngrediente, setEnableModalReceta } = useAppcontext();
   // eslint-disable-next-line prefer-const
   let tipo = selection === 0 ? "Receta" : "Ingrediente";
 

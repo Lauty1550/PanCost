@@ -68,6 +68,7 @@ export default function useNewReceta() {
   const handleClose = () => {
     setClosing(true);
     setRecetaEditar(null);
+    reset();
 
     setTimeout(() => {
       setEnableModalReceta(false);

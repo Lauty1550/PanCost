@@ -16,7 +16,7 @@ export default function Content() {
 
   return (
     <main className="content-container">
-      <BotonAdd />
+      <BotonAdd selection={location.pathname === "/Recetas" ? 0 : 1} />
       <form className="search" onSubmit={onSubmit}>
         <fieldset className="search-input">
           <FiSearch className="search-icon" onClick={focusInput} />

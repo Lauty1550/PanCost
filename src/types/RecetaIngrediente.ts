@@ -12,6 +12,6 @@ export interface RecetaIngrediente {
 
 export interface CreateRecetaIngredienteDTO {
   ingredienteId: number;
-  cantidadUsada: number;
+  cantidadUsada: number | undefined;
   unidad: Unidad;
 }

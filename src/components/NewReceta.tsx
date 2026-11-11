@@ -161,7 +161,7 @@ export default function NewReceta() {
                   {...register(`ingredientes.${index}.cantidadUsada`, {
                     required: true,
                     valueAsNumber: true,
-                    validate: (value) => value > 0,
+                    validate: (value) => value !== undefined && value > 0,
                   })}
                   disabled={isLoading}
                 />
@@ -209,7 +209,7 @@ export default function NewReceta() {
             onClick={() =>
               append({
                 ingredienteId: 0,
-                cantidadUsada: 0,
+                cantidadUsada: undefined,
                 unidad: "g",
               })
             }

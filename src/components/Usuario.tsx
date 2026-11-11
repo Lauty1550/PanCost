@@ -9,7 +9,7 @@ export function Usuario() {
   const [usuario, setUsuario] = useState<Usuario | null>();
   const navigate = useNavigate();
   const [dropdown, setDropdown] = useState(false);
-  const dropdownRef = useRef<HTMLButtonElement | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   async function obtenerUsuario() {
     const user = await authMe();
@@ -51,10 +51,11 @@ export function Usuario() {
   return (
     usuario && (
       <>
-        <button ref={dropdownRef} onClick={() => setDropdown(!dropdown)}>
-          {usuario.name}
-        </button>
-        <div className={`dropdown ${dropdown ? "open" : "close"}`}>
+        <button onClick={() => setDropdown(!dropdown)}>{usuario.name}</button>
+        <div
+          ref={dropdownRef}
+          className={`dropdown ${dropdown ? "open" : "close"}`}
+        >
           <button onClick={cerrarSesion} className="dropdown-edit-btn">
             Cerrar Sesion
           </button>

@@ -37,8 +37,8 @@ export default function useNewIngrediente() {
     } else {
       reset({
         nombre: "",
-        precioCompra: 0,
-        cantidadCompra: 0,
+        precioCompra: undefined,
+        cantidadCompra: undefined,
         unidadCompra: "kg",
       });
     }
@@ -46,6 +46,7 @@ export default function useNewIngrediente() {
 
   const handleClose = () => {
     setClosing(true);
+    reset();
 
     setTimeout(() => {
       setIngredienteEditar(null);
