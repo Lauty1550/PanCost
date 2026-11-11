@@ -19,6 +19,8 @@ type AppContextType = {
   setInicioSesion: React.Dispatch<React.SetStateAction<boolean>>;
   usuario: Usuario | null;
   setUsuario: React.Dispatch<React.SetStateAction<Usuario | null>>;
+  authLoading: boolean;
+  setAuthLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AppContext = createContext<AppContextType | null>(null);

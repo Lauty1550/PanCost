@@ -1,7 +1,8 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { AppContext } from "./AppContext";
 import type { Receta } from "../types/Receta";
 import type { Usuario } from "../types/Usuario";
+import { authMe } from "../services/auth.service";
 
 type Props = {
   children: ReactNode;
@@ -17,6 +18,32 @@ export default function AppProvider({ children }: Props) {
   const [recetaEditar, setRecetaEditar] = useState<Receta | null>(null);
   const [inicioSesion, setInicioSesion] = useState<boolean>(false);
   const [usuario, setUsuario] = useState<Usuario | null>(null);
+
+  const [authLoading, setAuthLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelado = false;
+
+    const verificarSesion = async () => {
+      try {
+        const user = await authMe();
+
+        if (!cancelado) setUsuario(user);
+      } catch (error) {
+        console.error("No se pudo comprobar la sesión:", error);
+
+        if (!cancelado) setUsuario(null);
+      } finally {
+        if (!cancelado) setAuthLoading(false);
+      }
+    };
+
+    verificarSesion();
+
+    return () => {
+      cancelado = true;
+    };
+  }, []);
 
   return (
     <AppContext.Provider
@@ -37,6 +64,8 @@ export default function AppProvider({ children }: Props) {
         setInicioSesion,
         usuario,
         setUsuario,
+        authLoading,
+        setAuthLoading,
       }}
     >
       {children}

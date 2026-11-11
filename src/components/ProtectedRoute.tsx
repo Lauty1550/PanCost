@@ -3,7 +3,11 @@ import { useAppcontext } from "../hooks/useAppContext";
 
 export function ProtectedRoute() {
   const location = useLocation();
-  const { usuario } = useAppcontext();
+  const { usuario, authLoading } = useAppcontext();
+
+  if (authLoading) {
+    return <p>Comprobando la sesión...</p>;
+  }
 
   if (!usuario) {
     return <Navigate to="/Log-In" replace state={{ from: location }} />;
