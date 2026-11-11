@@ -30,6 +30,7 @@
   border: 1px solid #efdfca;
   border-radius: 50%;
   background: #fff8ed;
+  user-select: none;
 }
 
 .login-brand span {

@@ -17,6 +17,7 @@
 
   margin-bottom: 1rem;
   margin-top: 1rem;
+  user-select: none;
 }
 
 .detalle-ingredientes {
@@ -60,6 +61,7 @@
   border: 1px solid #eee5dd;
 
   flex-shrink: 0;
+  user-select: none;
 }
 
 .detalle-ingrediente-info {
