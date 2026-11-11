@@ -16,19 +16,22 @@ export async function authGoogle(credential: unknown) {
 }
 
 export async function authMe() {
-  const response = await fetch(`${API_URL}/auth/me`, {
+  const response = await fetch(`${API_URL}/me`, {
     credentials: "include",
   });
 
   if (response.status === 401) return null;
-  if (!response.ok) throw new Error("No se pudo consultar la sesión");
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`GET /auth/me respondió ${response.status}: ${body}`);
+  }
 
   const { user } = await response.json();
   return user;
 }
 
 export async function logOut() {
-  await fetch(`${API_URL}/auth/logout`, {
+  await fetch(`${API_URL}/logout`, {
     method: "POST",
     credentials: "include",
   });

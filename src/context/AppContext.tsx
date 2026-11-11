@@ -14,6 +14,8 @@ type AppContextType = {
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   recetaEditar: Receta | null;
   setRecetaEditar: React.Dispatch<React.SetStateAction<Receta | null>>;
+  inicioSesion: boolean;
+  setInicioSesion: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AppContext = createContext<AppContextType | null>(null);

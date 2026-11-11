@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import { authGoogle } from "../services/auth.service";
+import { useAppcontext } from "../hooks/useAppContext";
+import { useNavigate } from "react-router";
 
 interface GoogleCredentialResponse {
   credential: string;
@@ -27,6 +29,9 @@ declare global {
 }
 
 export default function GoogleAuth() {
+  const { inicioSesion, setInicioSesion } = useAppcontext();
+  const navigate = useNavigate();
+
   const buttonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,6 +48,8 @@ export default function GoogleAuth() {
           try {
             const result = await authGoogle(credential);
             console.log("Login correcto:", result);
+            setInicioSesion(!inicioSesion);
+            navigate("/Recetas");
           } catch (error) {
             console.error("Falló el login:", error);
           }

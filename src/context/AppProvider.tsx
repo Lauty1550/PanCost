@@ -14,6 +14,7 @@ export default function AppProvider({ children }: Props) {
   const [dispararFetchReceta, setDispararFetchReceta] = useState(false);
   const [query, setQuery] = useState("");
   const [recetaEditar, setRecetaEditar] = useState<Receta | null>(null);
+  const [inicioSesion, setInicioSesion] = useState<boolean>(false);
 
   return (
     <AppContext.Provider
@@ -30,6 +31,8 @@ export default function AppProvider({ children }: Props) {
         setQuery,
         recetaEditar,
         setRecetaEditar,
+        inicioSesion,
+        setInicioSesion,
       }}
     >
       {children}
