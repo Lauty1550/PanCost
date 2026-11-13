@@ -26,6 +26,16 @@ declare global {
 }
 
 export default function GoogleAuth() {
-  const { buttonRef } = useGoogleAuth();
+  const { buttonRef, isLoggingIn } = useGoogleAuth();
+
+  if (isLoggingIn) {
+    return (
+      <div className="login-progress" role="status" aria-live="polite">
+        <span className="session-check__spinner" aria-hidden="true" />
+        <p>Iniciando sesión...</p>
+      </div>
+    );
+  }
+
   return <div ref={buttonRef} />;
 }
