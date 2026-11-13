@@ -1,21 +1,17 @@
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { authGoogle, authMe } from "../services/auth.service";
 import { useAppcontext } from "./useAppContext";
-import { useEffect, useRef } from "react";
 
 export function useGoogleAuth() {
   const { setUsuario } = useAppcontext();
   const navigate = useNavigate();
-
   const buttonRef = useRef<HTMLDivElement>(null);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   async function obtenerUsuario() {
     const user = await authMe();
-    if (user) {
-      setUsuario(user);
-    } else {
-      setUsuario(null);
-    }
+    setUsuario(user ?? null);
   }
 
   useEffect(() => {
@@ -29,12 +25,15 @@ export function useGoogleAuth() {
       window.google.accounts.id.initialize({
         client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
         callback: async ({ credential }) => {
+          setIsLoggingIn(true);
           try {
             await authGoogle(credential);
             await obtenerUsuario();
             navigate("/Recetas");
           } catch (error) {
             console.error("Falló el login:", error);
+          } finally {
+            setIsLoggingIn(false);
           }
         },
       });
@@ -53,5 +52,5 @@ export function useGoogleAuth() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { buttonRef };
+  return { buttonRef, isLoggingIn };
 }
