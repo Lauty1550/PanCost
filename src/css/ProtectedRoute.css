@@ -1,0 +1,61 @@
+.session-check {
+  min-height: calc(90vh - 80px);
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem;
+  background:
+    radial-gradient(ellipse at top, rgb(245 228 204 / 38%), transparent 55%),
+    #fffdf9;
+}
+
+.session-check__card {
+  width: min(100%, 360px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  border: 1px solid #f0e6da;
+  border-radius: 1.5rem;
+  background: #fff;
+  box-shadow:
+    0 24px 60px rgb(92 56 37 / 8%),
+    0 5px 16px rgb(92 56 37 / 4%);
+}
+
+.session-check__spinner {
+  width: 38px;
+  height: 38px;
+  border: 3px solid #f1e5d7;
+  border-top-color: #a56d43;
+  border-radius: 50%;
+  animation: session-check-spin 800ms linear infinite;
+}
+
+.session-check__card p {
+  margin: 0;
+  color: #6a422d;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@keyframes session-check-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .session-check__spinner {
+    animation-duration: 1.8s;
+  }
+}
+
+@media (max-width: 480px) {
+  .session-check {
+    min-height: calc(100vh - 64px);
+    padding: 1.25rem;
+  }
+}
